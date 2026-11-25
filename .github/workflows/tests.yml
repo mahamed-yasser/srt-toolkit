@@ -25,6 +25,8 @@ jobs:
         run: |
           python -m pip install .
           srt-toolkit --version
-          srt-toolkit clean examples/messy-ar-cp1256.srt -o cleaned.srt
+          python -c "import pathlib; pathlib.Path('messy-cp1256.srt').write_bytes(pathlib.Path('examples/messy-ar.srt').read_text(encoding='utf-8').encode('cp1256'))"
+          srt-toolkit clean messy-cp1256.srt -o cleaned.srt
+          grep -q "مرحبا" cleaned.srt
           srt-toolkit fix cleaned.srt -o fixed.srt --rtl
           srt-toolkit vtt fixed.srt -o fixed.vtt
