@@ -36,7 +36,13 @@ Input encoding is detected (UTF-8, UTF-8 with BOM, UTF-16, Windows-1256, then La
 
 ## Example
 
-Run on `examples/messy-ar-cp1256.srt` (an Arabic file saved in Windows-1256 with tags, an overlap, a duplicate cue and an empty cue):
+Run on `examples/messy-ar.srt` (Arabic, with tags, an overlap, a duplicate cue and an empty cue). To test the encoding repair too, save a Windows-1256 copy first:
+
+```
+python -c "import pathlib; pathlib.Path('messy.srt').write_bytes(pathlib.Path('examples/messy-ar.srt').read_text(encoding='utf-8').encode('cp1256'))"
+```
+
+Then:
 
 ```
 $ srt-toolkit check messy.srt --max-line 42
