@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "srt-toolkit"
+version = "0.2.0"
+description = "Fix, shift, merge, split and convert SRT subtitles. Made by Mahamed Yasser."
+readme = "README.md"
+requires-python = ">=3.8"
+authors = [{name = "Mahamed Yasser"}]
+
+[project.scripts]
+srt-toolkit = "srt_toolkit.cli:main"
+
+[tool.setuptools]
+packages = ["srt_toolkit"]
