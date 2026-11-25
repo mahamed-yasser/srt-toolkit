@@ -1,0 +1,30 @@
+name: tests
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.8", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Tests
+        run: python -m unittest discover -s tests -v
+      - name: Install and run the example
+        run: |
+          python -m pip install .
+          srt-toolkit --version
+          srt-toolkit clean examples/messy-ar-cp1256.srt -o cleaned.srt
+          srt-toolkit fix cleaned.srt -o fixed.srt --rtl
+          srt-toolkit vtt fixed.srt -o fixed.vtt
